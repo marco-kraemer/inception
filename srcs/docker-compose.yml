@@ -1,0 +1,34 @@
+version: "3.3"
+services:
+    server:
+        build: "./requirements/nginx"
+        container_name: nginx_container
+        restart: always
+        ports: 
+            - '443:443'
+        networks: 
+            - app-connect
+    db:
+        build: "./requirements/mariadb"
+        container_name: mariadb_container
+        restart: always
+        ports: 
+            - '3306:3306'
+        networks: 
+            - app-connect
+        depends_on: 
+            - server
+    wordpress:
+        build: "./requirements/wordpress"
+        container_name: wordpress_container
+        restart: always
+        ports: 
+            - '8080:8080'
+        networks: 
+            - app-connect
+        depends_on:
+            - db
+
+networks: 
+    app-connect:
+        driver: bridge
