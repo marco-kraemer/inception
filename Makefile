@@ -15,7 +15,7 @@ NAME = inception
 all: $(NAME)
 
 $(NAME):
-	@mkdir -p /home/marco/data
+	@mkdir -p /home/user42/data
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml up
 
 fclean: clean
