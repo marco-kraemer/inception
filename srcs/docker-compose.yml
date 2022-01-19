@@ -8,26 +8,38 @@ services:
             - '443:443'
         networks: 
             - app-connect
-    db:
-        build: "./requirements/mariadb"
-        container_name: mariadb_container
-        restart: always
-        ports: 
-            - '3306:3306'
-        networks: 
-            - app-connect
-        depends_on: 
-            - server
     wordpress:
         build: "./requirements/wordpress"
         container_name: wordpress_container
+        environment: 
+            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+            - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+            - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+            - MARIADB_USER=${MARIADB_USER}
+            - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+            - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
         restart: always
         ports: 
             - '8080:8080'
         networks: 
             - app-connect
         depends_on:
-            - db
+            - server
+    db:
+        build:
+            context: "./requirements/mariadb"
+            args:
+                - MARIADB_USER=${MARIADB_USER}
+                - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+                - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+        container_name: mariadb_container
+        restart: always
+        ports: 
+            - '3300:3300'
+        networks: 
+            - app-connect
+        depends_on: 
+            - wordpress
 
 networks: 
     app-connect:
