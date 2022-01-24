@@ -1,16 +1,18 @@
 version: "3.3"
 services:
-    server:
+    nginx:
         build: "./requirements/nginx"
-        container_name: nginx_container
+        container_name: nginx
         restart: always
         ports: 
             - '443:443'
         networks: 
             - app-connect
+        depends_on:
+            - wordpress
     wordpress:
         build: "./requirements/wordpress"
-        container_name: wordpress_container
+        container_name: wordpress
         environment: 
             - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
             - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
@@ -24,22 +26,20 @@ services:
         networks: 
             - app-connect
         depends_on:
-            - server
-    db:
+            - mariadb
+    mariadb:
         build:
             context: "./requirements/mariadb"
             args:
                 - MARIADB_USER=${MARIADB_USER}
                 - MARIADB_PASSWORD=${MARIADB_PASSWORD}
                 - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-        container_name: mariadb_container
+        container_name: mariadb
         restart: always
         ports: 
             - '3300:3300'
         networks: 
             - app-connect
-        depends_on: 
-            - wordpress
 
 networks: 
     app-connect:

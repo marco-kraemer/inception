@@ -4,4 +4,5 @@ ARG MARIADB_USER
 ARG MARIADB_PASSWORD
 ARG MARIADB_ROOT_PASSWORD
 
+RUN apt-get update
 RUN apt-get -y install mariadb-server
