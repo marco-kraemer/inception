@@ -1,26 +1,26 @@
 version: "3.3"
 services:
 
-    mariadb:
-        build: "./requirements/mariadb"
-        container_name: mariadb
-        restart: always
-        ports: 
-            - '3316:3316'
-        networks: 
-            - app-connect
+    # mariadb:
+    #     build: "./requirements/mariadb"
+    #     container_name: mariadb
+    #     restart: always
+    #     ports: 
+    #         - '3316:3316'
+    #     networks: 
+    #         - app-connect
 
 
-    wordpress:
-        build: "./requirements/wordpress"
-        container_name: wordpress
-        restart: always
-        ports: 
-            - '8080:8080'
-        networks: 
-            - app-connect
-        depends_on:
-            - mariadb
+    # wordpress:
+    #     build: "./requirements/wordpress"
+    #     container_name: wordpress
+    #     restart: always
+    #     ports: 
+    #         - '8080:8080'
+    #     networks: 
+    #         - app-connect
+    #     depends_on:
+    #         - mariadb
 
     nginx:
         build: "./requirements/nginx"
@@ -30,8 +30,8 @@ services:
             - '443:443'
         networks: 
             - app-connect
-        depends_on:
-            - wordpress
+        # depends_on:
+        #     - wordpress
 
 networks: 
     app-connect:
