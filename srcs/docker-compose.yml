@@ -1,8 +1,29 @@
 version: "3.3"
 services:
+
+    mariadb:
+        build: "./requirements/mariadb"
+        container_name: mariadb
+        restart: always
+        ports: 
+            - '3316:3316'
+        networks: 
+            - app-connect
+
+
+    wordpress:
+        build: "./requirements/wordpress"
+        container_name: wordpress
+        restart: always
+        ports: 
+            - '8080:8080'
+        networks: 
+            - app-connect
+        depends_on:
+            - mariadb
+
     nginx:
-        image: nginx
-   #     build: "./requirements/nginx"
+        build: "./requirements/nginx"
         container_name: nginx
         restart: always
         ports: 
@@ -11,66 +32,7 @@ services:
             - app-connect
         depends_on:
             - wordpress
-        # volumes:
-        #     - type: volumes
-        #       source: database
-        #       target: /var/www
-    wordpress:
-        image: wordpress
- #       build: "./requirements/wordpress"
-        container_name: wordpress
-        environment: 
-            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-            - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-            - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
-            - MARIADB_USER=${MARIADB_USER}
-            - MARIADB_PASSWORD=${MARIADB_PASSWORD}
-            - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-        restart: always
-        ports: 
-            - '8080:8080'
-        networks: 
-            - app-connect
-        depends_on:
-            - mariadb
-    mariadb:
-        image: mysql
-        command: --default-autentication-plugin=mysql-native-password
-        environment:
-            - MYSQL_ROOT_PASSWORD=password
-        #    MARIADB_PASSWORD=password
-        #    MARIADB_ROOT_PASSWORD=password
-        # build:
-        #     context: "./requirements/mariadb"
-        #     args:
-        #         - MARIADB_USER=${MARIADB_USER}
-        #         - MARIADB_PASSWORD=${MARIADB_PASSWORD}
-        #         - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-        container_name: mariadb
-        restart: always
-        ports: 
-            - '3316:3316'
-        networks: 
-            - app-connect
-        # volumes:
-        #     - type: volumes
-        #       source: database
-        #       target: /var/lib/mysql
 
 networks: 
     app-connect:
         driver: bridge
-
-volumes:
-    site:
-        driver_opts: 
-            type: "none"
-            o: "bind"
-            device:
-                "/home/user42/data/code"
-    database:
-        driver_opts: 
-            type: "none"
-            o: "bind"
-            device:
-                "/home/user42/data/data"
