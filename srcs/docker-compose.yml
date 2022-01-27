@@ -27,9 +27,10 @@ services:
         container_name: nginx
         restart: always
         ports: 
-            - '3000:3000'
-        networks: 
-            - app-connect
+            - '80:80'
+            - '443:443'
+        #networks: 
+        #    - app-connect
         # depends_on:
         #     - wordpress
 
