@@ -23,14 +23,15 @@ services:
     #         - mariadb
 
     nginx:
+        tty: true
         build: "./requirements/nginx"
         container_name: nginx
         restart: always
         ports: 
-            - '80:80'
-            - '443:443'
-        #networks: 
-        #    - app-connect
+            - "443:443"
+            - "80:80"
+        networks: 
+           - app-connect
         # depends_on:
         #     - wordpress
 
