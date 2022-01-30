@@ -1,3 +1,3 @@
-service nginx start
+service start nginx
 
 bash
