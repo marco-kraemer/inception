@@ -16,4 +16,4 @@ COPY ./init.sh ./
 RUN chown -R www-data:www-data *
 RUN chmod -R 755 /var/www/*
 
-CMD bash init.sh
+CMD service nginx start; bash
