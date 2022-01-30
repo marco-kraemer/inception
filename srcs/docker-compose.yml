@@ -22,15 +22,15 @@ services:
         tty: true
         container_name: wordpress
         build: "./requirements/wordpress"
-        # environment: 
-        #     - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-        #     - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-        #     - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+        environment: 
+            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+            - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+            - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
         restart: always
         ports: 
             - "8888:80"
         networks: 
-            - app-connect
+            - app-connects
         depends_on:
             - nginx
 
