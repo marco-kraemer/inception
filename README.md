@@ -19,4 +19,12 @@ docker run -d --rm -it --name somename-container -p 80:80 somename-image
 docker exec -it somename-container /bin/bash
 ```
 
-###### github.com/tmatis/inception
+## Access mariadb
+```
+docker exec -it some-mariadb bash
+```
+
+```
+mysql -u root -p
+
+```

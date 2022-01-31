@@ -1,48 +1,39 @@
 version: "3.3"
 services:
 
-    # mariadb:
-    #     container_name: mariadb
-    #     build:
-    #         context: "./requirements/mariadb"
-    #         args:
-    #             - MARIADB_USER=${MARIADB_USER}
-    #             - MARIADB_PASSWORD=${MARIADB_PASSWORD}
-    #             - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-    #             - MARIADB_PASSWORD=password
-    #             - MARIADB_ROOT_PASSWORD=password
-    #     restart: always
-    #     ports: 
-    #         - "3316:3316"
-    #     networks: 
-    #        - app-connect
+    mariadb:
+        container_name: mariadb
+        image: mariadb
+        build: "./requirements/mariadb"
+        restart: always
+        env_file:
+            - .env
+        networks: 
+           - app-connect
 
 
     wordpress:
-        tty: true
         container_name: wordpress
+        image: wordpress
         build: "./requirements/wordpress"
-        environment: 
-            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-            - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-            - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
         restart: always
-        ports: 
-            - "8888:80"
         networks: 
-            - app-connects
+            - app-connect
         depends_on:
-            - nginx
+            - mariadb
 
     nginx:
         tty: true
         container_name: nginx
+        image: nginx
         build: "./requirements/nginx"
         restart: always
         ports: 
             - "443:443"
         networks: 
            - app-connect
+        depends_on:
+            - wordpress
 
 networks: 
     app-connect:
