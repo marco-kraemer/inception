@@ -15,18 +15,19 @@ NAME = inception
 all: $(NAME)
 
 $(NAME):
-	@mkdir -p /home/osboxes/data/data
-	@mkdir -p /home/osboxes/data/code
+	@mkdir -p /home/osboxes/data/mariadb
+	@mkdir -p /home/osboxes/data/wordpress
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml up
 
 fclean: clean
-	@echo "do something"
+	rm -rf /home/osboxes/data
 
 clean:
 	bash remove.sh
 
 re:
-	@echo "do something"
+	fclean
+	all
 
 git:
 	git add .
