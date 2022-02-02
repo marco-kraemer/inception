@@ -24,10 +24,10 @@ stop:
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml stop
 
 fclean: clean
-	rm -rf /home/osboxes/data
-
-clean:
 	bash remove.sh
+
+clean: stop
+	sudo rm -rf /home/osboxes/data
 
 re:
 	fclean
