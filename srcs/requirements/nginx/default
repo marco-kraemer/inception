@@ -1,6 +1,6 @@
 server {
 	listen 443 ssl;
-	listen [::]:443 ipv6only=on default_server ssl;
+	listen [::]:443 ssl;
 	server_name maraurel.42.fr;
 
 	ssl on;
