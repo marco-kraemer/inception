@@ -15,8 +15,8 @@ NAME = inception
 all: $(NAME)
 
 $(NAME):
-	@mkdir -p /home/osboxes/data/mariadb
-	@mkdir -p /home/osboxes/data/wordpress
+	sudo mkdir -p /home/osboxes/data/mariadb
+	sudo mkdir -p /home/osboxes/data/wordpress
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml up --force-recreate --build -d
 	docker image prune -f
 
