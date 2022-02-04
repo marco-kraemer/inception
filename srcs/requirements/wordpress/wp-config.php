@@ -23,7 +23,7 @@
 define( 'DB_NAME', 'inceptiondb' );
 
 /** MySQL database username */
-define( 'DB_USER', 'dvs' );
+define( 'DB_USER', 'maraurel' );
 
 /** MySQL database password */
 define( 'DB_PASSWORD', 'password' );
