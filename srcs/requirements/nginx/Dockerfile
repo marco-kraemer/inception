@@ -7,6 +7,6 @@ RUN apt-get  install openssl -y
 
 RUN openssl req -x509 -nodes -days 365 -subj "/C=BR/OU=42sp/CN=maraurel" -newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
 
-COPY ./default etc/nginx/sites-enabled/default
+COPY ./nginx-conf etc/nginx/sites-enabled/default
 
 CMD ["nginx", "-g", "daemon off;"]
