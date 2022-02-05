@@ -15,8 +15,8 @@ NAME = inception
 all: $(NAME)
 
 $(NAME):
-	sudo mkdir -p /home/osboxes/data/mariadb
-	sudo mkdir -p /home/osboxes/data/wordpress
+	sudo mkdir -p /home/maraurel/data/mariadb
+	sudo mkdir -p /home/maraurel/data/wordpress
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml up --force-recreate --build -d
 	docker image prune -f
 
@@ -27,7 +27,7 @@ fclean: clean
 	bash remove.sh
 
 clean: stop
-	sudo rm -rf /home/osboxes/data
+	sudo rm -rf /home/maraurel/data
 
 re:
 	fclean

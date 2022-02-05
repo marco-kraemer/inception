@@ -21,10 +21,15 @@ docker exec -it somename-container /bin/bash
 
 ## Access mariadb
 ```
-docker exec -it some-mariadb bash
+docker exec -it some-mariadb /bin/bash
 ```
 
 ```
 mysql -u root -p
 
+```
+
+## Dump mysql database in docker
+```
+docker exec mariadb_debian /usr/bin/mysqldump -u root --password=12345 inceptiondb > backup.sql
 ```

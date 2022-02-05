@@ -9,14 +9,14 @@ volumes:
             name: wordpress
             driver: local
             driver_opts:
-                    device: /home/osboxes/data/wordpress
+                    device: /home/maraurel/data/wordpress
                     o: bind
                     type: none
     mariadb:
             name: mariadb
             driver: local
             driver_opts:
-                    device: /home/osboxes/data/mariadb
+                    device: /home/maraurel/data/mariadb
                     o: bind
                     type: none
 
