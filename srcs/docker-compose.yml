@@ -1,8 +1,8 @@
 version: "3.5"
 
 networks:
-    localhost:
-            name: inet
+    inception_network:
+            name: inception
 
 volumes:
     wordpress:
@@ -33,7 +33,7 @@ services:
             volumes:
                     - wordpress:/var/www/wordpress
             networks:
-                    - localhost
+                    - inception_network
             restart: always
 
     mariadb:  
@@ -42,7 +42,7 @@ services:
             volumes:
                     - mariadb:/var/lib/mysql
             networks:
-                    - localhost
+                    - inception_network
             image: mariadb
             restart: always
             env_file:
@@ -57,7 +57,7 @@ services:
             volumes:
                     - wordpress:/var/www/wordpress
             networks:
-                    - localhost
+                    - inception_network
             restart: always
             env_file:
                 - .env
