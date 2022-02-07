@@ -24,7 +24,7 @@ stop:
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml stop
 
 fclean: clean
-	bash remove.sh
+	bash clean_all.sh
 
 clean: stop
 	sudo rm -rf /home/maraurel/data

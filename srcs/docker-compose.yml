@@ -1,31 +1,10 @@
 version: "3.5"
 
-networks:
-    inception_network:
-            name: inception
-
-volumes:
-    wordpress:
-            name: wordpress
-            driver: local
-            driver_opts:
-                    device: /home/maraurel/data/wordpress
-                    o: bind
-                    type: none
-    mariadb:
-            name: mariadb
-            driver: local
-            driver_opts:
-                    device: /home/maraurel/data/mariadb
-                    o: bind
-                    type: none
-
-
 services:
     nginx:
             depends_on:
                     - wordpress
-            container_name: nginx_debian
+            container_name: nginx
             build: ./requirements/nginx
             image: nginx
             ports:
@@ -37,7 +16,7 @@ services:
             restart: always
 
     mariadb:  
-            container_name: mariadb_debian
+            container_name: mariadb
             build: ./requirements/mariadb
             volumes:
                     - mariadb:/var/lib/mysql
@@ -51,7 +30,7 @@ services:
     wordpress:
             depends_on:
                     - mariadb
-            container_name: wordpress_debian
+            container_name: wordpress
             build: ./requirements/wordpress
             image: wordpress
             volumes:
@@ -61,3 +40,22 @@ services:
             restart: always
             env_file:
                 - .env
+
+networks:
+    inception_network:
+            driver: bridge
+
+volumes:
+    wordpress:
+            name: wordpress
+            driver_opts:
+                    device: /home/maraurel/data/wordpress
+                    o: bind
+                    type: none
+    mariadb:
+            name: mariadb
+            driver: local
+            driver_opts:
+                    device: /home/maraurel/data/mariadb
+                    o: bind
+                    type: none
